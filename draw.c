@@ -1,5 +1,4 @@
-#include<stdio.h>
-void draw(char board[8][8][32],char kill_white[8][32],char kill_black[8][32]){
+__VERSION__ draw(char board[8][8][32],char kill_white[8][32],char kill_black[8][32]){
     char col ='A';
     int x = 8;
     for(int i=0 ; i <8 ;i++){
@@ -17,25 +16,4 @@ void draw(char board[8][8][32],char kill_white[8][32],char kill_black[8][32]){
                 for(int n=0;n<8;n++){printf("  %c ",col+n);}
                 printf("\n");}
         }
-}
-
-int main(){
-    char board[8][8][32] = {
-        {"♖", "♘", "♗", "♔", "♕", "♗", "♘", "♖"},
-        {"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {"♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"},
-        {"♜", "♞", "♝", "♚", "♛", "♝", "♞", "♜"}
-        
-        
-    };
-    char kill_white[16][32]={"♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟",
-                            "♜", "♞", "♝", "♚", "♛", "♝", "♞", "♜"};
-    char kill_black[16][32]={"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙",
-                        "♖", "♘", "♗", "♔", "♕", "♗", "♘", "♖"};
-        draw(board,kill_white,kill_black);
-        return 0;
 }
