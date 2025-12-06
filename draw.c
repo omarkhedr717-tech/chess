@@ -1,4 +1,5 @@
-__VERSION__ draw(char board[8][8][32],char kill_white[8][32],char kill_black[8][32]){
+#include "header.h"
+void draw(char board[8][8][32],char kill_white[8][32],char kill_black[8][32]){
     char col ='A';
     int x = 8;
     for(int i=0 ; i <8 ;i++){
