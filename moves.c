@@ -2,7 +2,7 @@
 #include <string.h>
 #include <header.h>
 
-void PowMove(int player, int current_x, int current_y, int to_x, int to_y, char board[8][8]) {
+void PowMove(int player, int current_x, int current_y, int to_x, int to_y, char board[8][8][32]) {
     int flag = 1;
     if (player == 1) { //(white)
         if (current_x == 6 && to_x == 4 && strchr("._", board[current_x - 2][current_y]))
