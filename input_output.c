@@ -19,12 +19,13 @@ char *Input(int player,
         if (*current_x >= 0 && *current_x <= 7 && *current_y >= 0 && *current_y <= 7) {
             if (player == 1){
                 if (strchr("♟♜♞♝♛♚", board[*current_x][*current_y])) {
-                    if (!strchr("♙♖♘♗♔♕", board[*to_x][*to_y])) {
+                    if (!strchr("♟♜♞♝♛♚", board[*to_x][*to_y])) {
                         flag = false;}}}
-
+                    if (flag ==true) {printf("Wrong Move!\n");continue;}
+                    flag = true;
             if (player == 2){
                 if (strchr("♙♖♘♗♔♕", board[*current_x][*current_y])) {
-                    if (!strchr("♟♜♞♝♛♚", board[*to_x][*to_y])) {
+                    if (!strchr("♙♖♘♗♔♕", board[*to_x][*to_y])) {
                         flag = false;}}}
             } else printf("Wrong Move!\n");
         }
