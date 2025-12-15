@@ -1,7 +1,4 @@
-#include <stdlib.h>
-#include <string.h>
-#include <header.h>
-
+#include "header.h"
 void PowMove(int player, int current_x, int current_y, int to_x, int to_y, char board[8][8][32]) {
     int flag = 1;
     if (player == 1) { //(white)
@@ -35,7 +32,7 @@ void PowMove(int player, int current_x, int current_y, int to_x, int to_y, char 
     }
 }
 
-void BishopMove(int player, int current_x, char current_y, int to_x, char to_y, char board[8][8]) {
+void BishopMove(int player, int current_x, char current_y, int to_x, char to_y, char board[8][8][32]) {
     int flag = 1, m = to_x, w = to_y; // m,w is a flag that will be used as index moving in the array (i,j)
     if (current_x == to_x || current_y == to_y)
         return 0;
@@ -71,7 +68,7 @@ void BishopMove(int player, int current_x, char current_y, int to_x, char to_y, 
     }
 }
 
-void RookMove(int current_x, int current_y, int to_x, int to_y, int board[8][8]) {
+void RookMove(int current_x, int current_y, int to_x, int to_y, int board[8][8][32]) {
     int flag = 1, m;
     if (to_x == current_x && to_y != current_y) { // moving horizontal
         m = to_y;
