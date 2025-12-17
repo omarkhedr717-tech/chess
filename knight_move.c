@@ -12,11 +12,11 @@ void knight_move(int player, int current_x, int current_y,
                                 *flag = true;
                                 if(player ==1){
                                    if(check_black(to_x,to_y,board)) {
-                                        strcpy(kill_black[*count_deadBlack++] , board[to_x][to_y]);
+                                        strcpy(kill_black[(*count_deadBlack)++] , board[to_x][to_y]);
                                    }
                                 }else if(player ==2){
                                     if(check_white(to_x,to_y,board)) 
-                                        strcpy(kill_white[*count_deadWhite++] , board[to_x][to_y]);
+                                        strcpy(kill_white[(*count_deadWhite)++] , board[to_x][to_y]);
                                 }
                                 strcpy(board[to_x][to_y] , board[current_x][current_y]);
                             }
