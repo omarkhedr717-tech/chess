@@ -26,6 +26,14 @@ void Input(int player,
                  int to_x, int to_y, char board[8][8][32],
                 char kill_white[16][32],char kill_black[16][32],
                 int *count_deadWhite,int *count_deadBlack,bool *flag);
+    void paw_move(int player, int current_x, int current_y,
+                 int to_x, int to_y, char board[8][8][32],
+                char kill_white[16][32],char kill_black[16][32],
+                int *count_deadWhite,int *count_deadBlack,bool *flag);
+    void king_move(int player, int current_x, int current_y,
+                 int to_x, int to_y, char board[8][8][32],
+                char kill_white[16][32],char kill_black[16][32],
+                int *count_deadWhite,int *count_deadBlack,bool *flag);
                 
 void FixBoard(int current_x, int current_y,char board[8][8]);
 char Promotion(int to_x);
