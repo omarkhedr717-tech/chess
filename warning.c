@@ -16,8 +16,14 @@ bool warning(int player ,int current_x, int current_y,char board[8][8][32]){
                 for(int k=0;k<6;k++){
                     if(strcmp(killers[k], board[i][j])==0){
                         if(k==0){
-                            if(current_x==i+1&&(current_y=j+1||current_y==j-1))
-                                flag = true;
+                            if(player ==1){
+                                if(current_x==i+1&&(current_y=j+1||current_y==j-1))
+                                    flag = true;
+                            }
+                            if(player ==2){
+                                if(current_x==i-1&&(current_y=j+1||current_y==j-1))
+                                    flag = true;
+                            }
                         }
                         else if(k==1){
                             if(current_x==i||current_y==j)

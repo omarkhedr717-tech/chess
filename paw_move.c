@@ -46,5 +46,28 @@ void paw_move(int player, int current_x, int current_y,
                     }
             if(*flag){
             strcpy(board[to_x][to_y] , board[current_x][current_y]);
-        }
+                char black[6][32]={"♖", "♘", "♗", "♕"};
+                char white[6][32]={"♜", "♞", "♝", "♛"};
+                int ans;
+                if(player==1){
+                    if(to_x==0){
+                        printf("get pormotion!\nchoose from the list:\n");
+                        for(int i=0;i<4;i++){
+                            printf("%d ---> %s\n",i+1,white[i]);
+                        }
+                        scanf("%d",&ans);
+                        strcpy(board[to_x][to_y] , white[ans-1]);
+                    }
+                }if(player==2){
+                    if(to_x==7){
+                        printf("get pormotion!\nchoose from the list:\n");
+                        for(int i=0;i<4;i++){
+                            printf("%d ---> %s\n",i+1,black[i]);
+                        }
+                        scanf("%d",&ans);
+                        strcpy(board[to_x][to_y] , black[ans-1]);
+                    }
+                }
+            }
+    
     }
