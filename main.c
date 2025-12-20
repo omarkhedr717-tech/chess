@@ -4,9 +4,9 @@ int main(){
         {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"},
         {"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"},
         {"-", ".", "-", ".", ".", "-", ".", "-"},
-        {".", "-", ".", "-", "-", ".", "-", "."},
-        {"-", ".", "-", ".", ".", "-", ".", "-"},
-        {".", "-", ".", "-", "-", ".", "-", "."},
+        {"♟", "-", ".", "-", "-", ".", "-", "."},
+        {"-", "♙", "-", ".", ".", "-", ".", "-"},
+        {".", "♙", ".", "-", "-", ".", "-", "."},
         {"♟", "♘", "♟", "♟", "♟", "♟", "♟", "♟"},
         {"♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"}};
     char kill_white[16][32]={" ", " ", " ", " ", " ", " ", " ", " ",
@@ -16,54 +16,82 @@ int main(){
     int player=1,current_x,  to_x, count_deadWhite=0,count_deadBlack=0;
     char current_y,to_y;bool flag;
     draw(board, kill_white,kill_black);
-char savegame[100000]= {"c1b2b2c3c3g7"};
+
+char filename[100];
+char savegamefile[100000]= {""};
+char savegame[100000]= {""};
 int moves=strlen(savegame)-1,moveindex=0,i=0;
 int move_before_undo;
 int flagsave=0,flagundo=0;
+
 int killed_white_at[16],killed_black_at[16];
-printf("Do you want to load saved game?: ");
+int flagpassant=0,passant_counter=0;
+int possion_white_at[8],possion_black_at[8];
+int passant_x;
+char passant_y;
+
+FILE *fp;
+printf("Do you want to load saved game (1/0)?: ");
 scanf("%d",&flagsave);
+if (flagsave == 1) {
+    printf("WHICH GAME SAVE?: \n");
+    scanf("%s",filename);
+    while(LoadFile(filename, savegamefile)) {
+        scanf("%s",filename);
+    };
+}
+
+if (flagsave == 0)
+    CreateFile(filename);
+
 
 while(true){
-if (flagsave == 1) {
-    current_y = savegame[moveindex++]-97;
-    current_x = 8 - (savegame[moveindex++]-48);
-    to_y = savegame[moveindex++]-97;
-    to_x = 8 - (savegame[moveindex++]-48);
-}
 
-if (flagsave == 0 && flagundo == 0) {
+if (flagsave == 1)
+    loadgame(&current_x, &current_y, &to_x, &to_y, &moveindex, savegamefile);
+
+if (flagsave == 0 && flagundo == 0)
     Input(player, &current_x,&current_y,&to_x, &to_y,board);
-    savegame[i++] = current_y+97; savegame[i++] = 8-current_x+48; savegame[i++] = to_y+97; savegame[i++] = 8-to_x+48; savegame[i] = '\0';
-    moves=strlen(savegame)-1;
+
+if (flagundo == 0) {
+savegame[i++] = current_y+97; savegame[i++] = 8-current_x+48; savegame[i++] = to_y+97; savegame[i++] = 8-to_x+48;
+moves=strlen(savegame)-1;
 }
 
-if (moves > 0) {
-bishop_move(player,current_x, current_y, to_x, to_y, board, kill_white, kill_black, &count_deadWhite, &count_deadBlack, &flag, moves, killed_white_at, killed_black_at);}
-if(!flag){
-    printf("Wrong move!\n");
-    continue;
+if (moves > 0 ) {
+    paw_move(player,current_x, current_y, to_x, to_y, board, kill_white, kill_black, &count_deadWhite, &count_deadBlack, &flag, moves, killed_white_at, 
+            killed_black_at, &flagpassant, possion_white_at, possion_black_at, &passant_x, &passant_y);
+    if (flag) player = (player % 2) + 1;
+    PassantOff(&flagpassant, &passant_counter, moves);
 }
-if (moveindex == moves+1) {flagsave = 0;}
+
+if(!flag){      //if it's invalid remove it from the saving file
+savegame[--i] = '\0', savegame[--i] = '\0',savegame[--i] = '\0',savegame[--i] = '\0';
+moves=strlen(savegame)-1;
+printf("Wrong move!\n");
+continue;
+}
 
 if (flagundo == 1 && moves > 0) {
-    if (move_before_undo == killed_white_at[count_deadWhite-2])  strcpy(board[current_x][current_y] , kill_white[count_deadWhite-2]);
-    if (move_before_undo == killed_black_at[count_deadBlack-2])  strcpy(board[current_x][current_y] , kill_black[count_deadBlack-2]);
-    moves-=4;
-    if (moves < 0) flagundo = 0;
+ReturnKilled(&current_x, &current_y, move_before_undo, &count_deadWhite, &count_deadBlack, killed_white_at, killed_black_at, kill_white, kill_black, board);
+moves-=4;
 }
 draw(board, kill_white,kill_black);
 
-printf("DO YOU WANT TO UNDO?:\n");
-scanf("%d",&flagundo);
-move_before_undo = moves;
-if (flagsave == 0 && moves > 0 && flagundo == 1) {
+
+if (flagsave == 0) {
+    printf("DO YOU WANT TO UNDO?:\n");
+    scanf("%d",&flagundo);
+    move_before_undo = moves;
+    if (flagsave == 0 && moves > 0 && flagundo == 1) {
         Undo(&current_x, &current_y, &to_x, &to_y, moves,savegame);
         savegame[--i] = '\0', savegame[--i] = '\0',savegame[--i] = '\0',savegame[--i] = '\0';
+    }
 }
-
 draw(board, kill_white,kill_black);
 
+UpdateFile(filename, savegame);
+if (moveindex == strlen(savegamefile)) {flagsave = 0;}  //loading is done
 }
 return 0;
 }
