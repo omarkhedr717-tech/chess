@@ -3,7 +3,7 @@ void paw_move(int player, int current_x, int current_y,
                  int to_x, int to_y, char board[8][8][32],
                 char kill_white[16][32],char kill_black[16][32],
                 int *count_deadWhite,int *count_deadBlack,bool *flag, int moves, int killed_white_at[16], int killed_black_at[16], 
-                int *flagpassant, int possion_white_at[8], int possion_black_at[8], int *passant_x, char *passant_y){
+                int *flagpassant, int *passant_x, char *passant_y){
                     *flag = false;
                     if(player ==1){
                         if(to_x==current_x-2 && to_y==current_y){
@@ -22,7 +22,7 @@ void paw_move(int player, int current_x, int current_y,
                         }else if(to_x==current_x-1 && (to_y==current_y+1 || to_y==current_y-1)){
                             if(check_black(to_x,to_y,board) || *flagpassant == 1){
                                 if (*flagpassant == 1) Dopassant(current_x, current_y, to_x, to_y, player, moves, flag, count_deadBlack, 
-                                                                count_deadWhite, kill_black, possion_black_at, kill_white, possion_white_at, board, passant_x, passant_y);
+                                                                count_deadWhite, kill_black, killed_black_at, kill_white, killed_white_at, board, passant_x, passant_y);
                                 else {
                                     strcpy(kill_black[(*count_deadBlack)++] , board[to_x][to_y]);
                                     killed_black_at[*count_deadBlack-1] = moves;
@@ -48,7 +48,7 @@ void paw_move(int player, int current_x, int current_y,
                         }else if(to_x==current_x+1 && (to_y==current_y+1 || to_y==current_y-1)){
                             if(check_white(to_x,to_y,board) || *flagpassant == 1){
                                 if (*flagpassant == 1) Dopassant(current_x, current_y, to_x, to_y, player, moves, flag, count_deadBlack, 
-                                                                count_deadWhite, kill_black, possion_black_at, kill_white, possion_white_at, board, passant_x, passant_y);
+                                                                count_deadWhite, kill_black, killed_black_at, kill_white, killed_white_at, board, passant_x, passant_y);
                                 else {
                                     strcpy(kill_white[(*count_deadWhite)++] , board[to_x][to_y]);
                                     killed_white_at[*count_deadWhite-1] = moves;
@@ -59,6 +59,7 @@ void paw_move(int player, int current_x, int current_y,
                     }
             if(*flag){
             strcpy(board[to_x][to_y] , board[current_x][current_y]);
+            FixBoard(current_x,current_y,board);
                 char black[6][32]={"♖", "♘", "♗", "♕"};
                 char white[6][32]={"♜", "♞", "♝", "♛"};
                 int ans;
@@ -82,5 +83,4 @@ void paw_move(int player, int current_x, int current_y,
                     }
                 }
             }
-    FixBoard(current_x,current_y,board);
     }

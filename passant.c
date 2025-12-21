@@ -14,14 +14,14 @@ int Checkpassant(int to_x, char to_y, int *passant_x, char *passant_y, int playe
 }
 
 void Dopassant(int current_x, char current_y ,int to_x, char to_y, int player, int moves,int *flag, int *count_deadBlack, int *count_deadWhite,char kill_black[16][32],
-    int possion_black_at[16], char kill_white[16][32], int possion_white_at[16],char board[8][8][32], int *passant_x, char *passant_y) {
+    int killed_black_at[16], char kill_white[16][32], int killed_white_at[16],char board[8][8][32], int *passant_x, char *passant_y) {
     if (player == 1 && (*passant_x == to_x) && (*passant_y == to_y)) {
     strcpy(kill_black[(*count_deadBlack)++] , "♙");
     if (to_y == current_y+1)
         FixBoard(current_x,current_y+1,board);
     if (to_y == current_y-1)
         FixBoard(current_x,current_y-1,board);
-    possion_white_at[*count_deadBlack-1] = moves;
+    killed_black_at[*count_deadBlack-1] = moves;
     *flag=true;
     }
     if (player == 2 && (*passant_x == to_x) && (*passant_y == to_y)) {
@@ -30,7 +30,7 @@ void Dopassant(int current_x, char current_y ,int to_x, char to_y, int player, i
         FixBoard(current_x,current_y+1,board);
     if (to_y == current_y-1)
         FixBoard(current_x,current_y-1,board);
-    possion_black_at[*count_deadWhite-1] = moves;
+    killed_white_at[*count_deadWhite-1] = moves;
     *flag=true;
     }
 }
