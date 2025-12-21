@@ -26,23 +26,11 @@ bool warning(int player ,int current_x, int current_y,char board[8][8][32]){
                             }
                         }
                         else if(k==1){
-                            if(current_x==i||current_y==j)
-                                flag =true;
+rook_move(i,j,current_x,current_y,board,&flag);
                         }else if(k==2){
-                            for(int a =-2;a<=2;a++){
-                                for(int b =-2;b<=2;b++){
-                                    if(a!=0&&b!=0){
-                                        if(abs(a)!=abs(b)){
-                                            if(current_x==a+i&&current_y==b+j){
-                                                flag =true;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+knight_move(i,j,current_x,current_y,board,&flag);
                         }else if(k==3){
-                            if(abs(current_x-current_y)==abs(i-j)||(current_x+current_y)==(i+j))
-                                flag =true;
+bishop_move(i,j,current_x,current_y,board,&flag);
                         }else if(k==4){
                                 for(int a =-1;a<2;a++){
                                     for(int b =-1 ;b<2;b++){
@@ -53,11 +41,7 @@ bool warning(int player ,int current_x, int current_y,char board[8][8][32]){
                                     }
                                 }
                         }else if(k==5){
-                            if(abs(current_x-current_y)==abs(i-j)||(current_x+current_y)==(i+j))
-                                flag =true;
-                            else if(current_x==i||current_y==j)
-                                flag =true;
-                            
+queen_move(i,j,current_x,current_y,board,&flag);
                         }
                     }
                 }

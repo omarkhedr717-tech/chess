@@ -1,8 +1,8 @@
 #include"header.h"
 void paw_move(int player, int current_x, int current_y,
                  int to_x, int to_y, char board[8][8][32],
-                char kill_white[16][32],char kill_black[16][32],
-                int *count_deadWhite,int *count_deadBlack,bool *flag, int moves, int killed_white_at[16], int killed_black_at[16], 
+                char kill_white[15][32],char kill_black[15][32],
+                int *count_deadWhite,int *count_deadBlack,bool *flag, int moves, int killed_white_at[15], int killed_black_at[15], 
                 int *flagpassant, int *passant_x, char *passant_y){
                     *flag = false;
                     if(player ==1){

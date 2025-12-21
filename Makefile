@@ -2,8 +2,8 @@ compiler = gcc
 debug: test
 all:test
 	./test 
-test: main.o draw.o check_white_or_black.o input_output.o knight_move.o bishop_moves.o rook_move.o queen_move.o undo.o miscellaneous.o file.o passant.o paw_move.o pickpiece.o
-	$(compiler) main.o draw.o check_white_or_black.o input_output.o knight_move.o bishop_moves.o rook_move.o queen_move.o undo.o miscellaneous.o file.o  passant.o paw_move.o pickpiece.o -o test -g
+test: main.o draw.o check_white_or_black.o input_output.o knight_move.o bishop_moves.o rook_move.o queen_move.o undo.o miscellaneous.o file.o passant.o paw_move.o pickpiece.o eat.o king.o
+	$(compiler) main.o draw.o check_white_or_black.o input_output.o knight_move.o bishop_moves.o rook_move.o queen_move.o undo.o miscellaneous.o file.o  passant.o paw_move.o pickpiece.o eat.o king.o -o test -g
 main.o: main.c header.h
 	$(compiler) -c main.c -g
 draw.o: draw.c header.h
@@ -28,9 +28,13 @@ undo.o: undo.c header.h
 	$(compiler) -c undo.c -g
 miscellaneous.o: miscellaneous.o header.h
 	$(compiler) -c miscellaneous.c -g
-file.o: file.o header.h
+file.o: file.c header.h
 	$(compiler) -c file.c -g
-pickpiece.o: pickpiece.o header.h
+pickpiece.o: pickpiece.c header.h
 	$(compiler) -c pickpiece.c -g
+eat.o: eat.c header.h
+	$(compiler) -c eat.c -g
+king.o: king.c header.h
+	$(compiler) -c king.c -g
 clean:
 	rm -f *.o test

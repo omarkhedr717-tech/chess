@@ -1,7 +1,7 @@
 #include"header.h"
 
-void Undo(int current_x, char current_y, int to_x, char to_y, int moves,char savegame[], char board[8][8][32], int count_deadWhite, int count_deadBlack, int killed_white_at[16],
-        int killed_black_at[16], char kill_white[16][32], char kill_black[16][32]) {
+void Undo(int current_x, char current_y, int to_x, char to_y, int moves,char savegame[], char board[8][8][32], int count_deadWhite, int count_deadBlack, int killed_white_at[15],
+        int killed_black_at[15], char kill_white[15][32], char kill_black[15][32]) {
         int flag;
         char temp_board[8][8][32];
         int move_before_undo;
@@ -50,25 +50,29 @@ void Undo(int current_x, char current_y, int to_x, char to_y, int moves,char sav
 }
 
 void ReturnKilled(int current_x, char current_y, int to_x, char to_y,int move_before_undo, int *count_deadWhite, int *count_deadBlack,
-        int killed_white_at[16], int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], char board[8][8][32], int flag) {
-        if ((move_before_undo == killed_white_at[(*count_deadWhite)-1])) {
+        int killed_white_at[15], int killed_black_at[15], char kill_white[15][32], char kill_black[15][32], char board[8][8][32], int flag) {
+        if (move_before_undo == killed_white_at[(*count_deadWhite)-1]) {
                 if (flag == 1) {
                 strcpy(board[current_x][current_y] , kill_white[(*count_deadWhite)-1]);
                 strcpy(kill_white[(*count_deadWhite)-1], " ");
+                if((*count_deadWhite)>0)
                 (*count_deadWhite)--;
                 }
                 else {
+                if((*count_deadWhite)<14)
                 (*count_deadWhite)++;
                 strcpy(kill_white[(*count_deadWhite)-1], board[to_x][to_y]);
                 }
         }
-        if ((move_before_undo == killed_black_at[(*count_deadBlack)-1])) {
+        if (move_before_undo == killed_black_at[(*count_deadBlack)-1]) {
                 if (flag == 1) {
                 strcpy(board[current_x][current_y] , kill_black[(*count_deadBlack)-1]);
                 strcpy(kill_black[(*count_deadBlack)-1], " ");
+                if((*count_deadWhite)>0)
                 (*count_deadBlack)--;
                 }
                 else {
+                if((*count_deadWhite)<14)
                 (*count_deadBlack)++;
                 strcpy(kill_black[(*count_deadBlack)-1], board[to_x][to_y]);
                 }
