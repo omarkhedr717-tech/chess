@@ -1,5 +1,5 @@
 #include"header.h"
-bool warning(int player ,int current_x, int current_y,char board[8][8][32]){
+bool warning(int player ,int current_x, int current_y,char board[8][8][32],int *warning_x,int *warning_y){
     bool flag =false;
     char black[6][32]={"♙","♖", "♘", "♗", "♔", "♕"};
     char white[6][32]={"♟","♜", "♞", "♝", "♚", "♛"};
@@ -19,29 +19,37 @@ bool warning(int player ,int current_x, int current_y,char board[8][8][32]){
                             if(player ==1){
                                 if(current_x==i+1&&(current_y=j+1||current_y==j-1))
                                     flag = true;
+                                    *warning_x = i; *warning_y = j;
                             }
                             if(player ==2){
                                 if(current_x==i-1&&(current_y=j+1||current_y==j-1))
                                     flag = true;
+                                    *warning_x = i; *warning_y = j;
                             }
                         }
                         else if(k==1){
 rook_move(i,j,current_x,current_y,board,&flag);
+if(flag) {*warning_x = i; *warning_y = j;}
                         }else if(k==2){
 knight_move(i,j,current_x,current_y,board,&flag);
+if(flag) {*warning_x = i; *warning_y = j;}
                         }else if(k==3){
 bishop_move(i,j,current_x,current_y,board,&flag);
+if(flag) {*warning_x = i; *warning_y = j;}
                         }else if(k==4){
-                                for(int a =-1;a<2;a++){
-                                    for(int b =-1 ;b<2;b++){
-                                        if (a!=0||b!=0){
-                                            if(i+a==current_x&&j+b==current_y)
-                                            flag =true;
-                                        }
-                                    }
-                                }
+for(int a =-1;a<2;a++){
+            for(int b =-1 ;b<2;b++){
+                if (a!=0||b!=0){
+                    if(i+a==current_x&&i+b==current_y){
+                                flag=true;
+                                *warning_x = i; *warning_y = j;
+                    }
+                }
+            }
+        }
                         }else if(k==5){
 queen_move(i,j,current_x,current_y,board,&flag);
+if(flag) {*warning_x = i; *warning_y = j;}
                         }
                     }
                 }

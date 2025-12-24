@@ -1,9 +1,9 @@
 #include"header.h"
 void eat(int player, int current_x, int current_y,
                  int to_x, int to_y, char board[8][8][32],
-                char kill_white[15][32],char kill_black[15][32],
+                char kill_white[16][32],char kill_black[16][32],
                 int *count_deadWhite,int *count_deadBlack,bool flag,
-                 int moves, int killed_white_at[15], int killed_black_at[15]){
+                 int moves, int killed_white_at[16], int killed_black_at[16]){
         if(flag){
             if(player ==1){
                 if(check_black(to_x,to_y,board)) {
