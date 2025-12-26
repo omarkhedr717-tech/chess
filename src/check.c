@@ -13,9 +13,10 @@ bool king_check(int player,int current_x, int current_y,char board[8][8][32],
         for (int i =0;i<8;i++){
             for (int j =0 ; j<8;j++){
                 if (strcmp(board[i][j], king[0])==0){
-                    if(warning(player ,i, j,board,warning_x,warning_y))
+                    if(warning(player ,i, j,board,warning_x,warning_y)) {
                         *check_x = i ;*check_y=j;
                         flag =true;
+                    }
                 }
             }
 
@@ -24,15 +25,13 @@ bool king_check(int player,int current_x, int current_y,char board[8][8][32],
 }
 bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],int check_x,int check_y, int *warning_x, int *warning_y){
     bool flag =true;
-    int to_x,to_y;
     for(int a =-1;a<2;a++){
             for(int b =-1 ;b<2;b++){
                 if (a!=0||b!=0){
-                    if(check_x+a==to_x&&current_y+b==to_y){
-                            if(!warning(player ,to_x,to_y,board,warning_x,warning_y)){
+                            if(!warning(player ,check_x+a,check_y+b,board,warning_x,warning_y)){
                                 flag=false;
                             }
-                    }
+                    
                 }
             }
         }

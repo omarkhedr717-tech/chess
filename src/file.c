@@ -17,21 +17,27 @@ void CreateFile(char filename[]) {
     }
 }
 
-void UpdateFile(char filename[], char savegame[]) {
+void UpdateFile(char filename[], char savegame[], int promotion_hist[], int draw_hist) {
     FILE *fp = fopen(filename, "w");
-    fputs(savegame, fp);
+    fprintf(fp, "%s\n", savegame);
+    for(int i = 0; i < 8; i++)
+        fprintf(fp, "%d", promotion_hist[i]);
+    fprintf(fp, "%d\n", draw_hist);
     fclose(fp);
 }
 
-int LoadFile(char filename[], char savegamefile[]) {
+int LoadFile(char filename[], char savegamefile[], int promotion_hist[], int *draw_hist) {
     int flagCreate=0;
     for (int i=0; filename[i]!='\0'; i++)
         {filename[i] = tolower(filename[i]);}
 
     FILE *fp = fopen(filename, "r");
     if (fp) {
-        fgets(savegamefile, 100000, fp);
-        fclose(fp);
+    fgets(savegamefile, 100000, fp);
+        for(int i = 0; i < 8; i++)
+            fscanf(fp, "%1d", &promotion_hist[i]);
+    fscanf(fp, "%d", draw_hist);
+    fclose(fp);
         return 0;
     }
     else {

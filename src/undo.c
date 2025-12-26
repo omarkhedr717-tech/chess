@@ -16,11 +16,17 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                         // if (testwarn == x) undo == 1 break;
                         printf("CHOOSE UNDO OR REDO (1/0) OR (-1) TO EXIT:");
                         scanf(" %d",&flag);
-                        if ((flag == 0) || (flag == 1) || (flag == -1)) break;
+                        if ((flag == 0) || (flag == 1) || (flag == -1)) {while (getchar() != '\n'); break;}
                         while (getchar() != '\n');
                         }
                 if (flag == -1) {
                 *player = temp_player;
+                if (((*moves) % 2) == 1) savegame[*moves+1] = '\0';
+                else if ((*moves) % 2 == 0) savegame[(*moves)-1] = '\0';
+                else if (*moves == -1) savegame[*moves+1] = '\0';
+
+                for (int i=*count_deadWhite;i<16;i++) killed_white_at[i] = 0;
+                for (int i=*count_deadBlack;i<16;i++) killed_black_at[i] = 0;
                 break;
                 }
 
@@ -59,6 +65,8 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 ReturnKilled(current_x, current_y, to_x, to_y,move_before_undo, count_deadWhite, count_deadBlack, killed_white_at, killed_black_at, kill_white, kill_black, board, flag, flagpassant, passant_counter);
                 temp_player = ((temp_player) % 2 ) +1;
                 }
+
+
 
                 if ((flag == 0) && ((*moves) < (int)strlen(savegame)-1)) { //strlen return unsigned int
                 if (undo == 1) (*moves)++;

@@ -12,19 +12,24 @@ bool warning(int player ,int current_x, int current_y,char board[8][8][32],int *
             }
         }
         for(int i=0;i<8;i++){
+            if (flag) break;
             for(int j=0;j<8;j++){
+                if (flag) break;
                 for(int k=0;k<6;k++){
+                    if (flag) break;
                     if(strcmp(killers[k], board[i][j])==0){
                         if(k==0){
                             if(player ==1){
-                                if(current_x==i+1&&(current_y=j+1||current_y==j-1))
+                                if(current_x==i+1&&(current_y==j+1||current_y==j-1)) {
                                     flag = true;
                                     *warning_x = i; *warning_y = j;
+                                }
                             }
                             if(player ==2){
-                                if(current_x==i-1&&(current_y=j+1||current_y==j-1))
+                                if(current_x==i-1&&(current_y==j+1||current_y==j-1)) {
                                     flag = true;
                                     *warning_x = i; *warning_y = j;
+                                }
                             }
                         }
                         else if(k==1){

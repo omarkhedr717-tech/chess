@@ -3,8 +3,7 @@ void queen_move(int current_x, int current_y,
                  int to_x, int to_y, char board[8][8][32],bool *flag){
 
         *flag = false;int x=current_x,y=current_y;
-        if(abs(to_x-to_y)==abs(current_x-current_y)||(to_x+to_y)==(current_x+current_y)
-            || to_x==current_x||to_y==current_y)
+        if(!((current_y == to_y) && (current_x == to_x)) && (abs(to_x-current_x)==abs(to_y-current_y) || to_x==current_x||to_y==current_y))
         *flag =true;
         if(to_x>=current_x&&to_y>=current_y){
             if(to_x==current_x){
