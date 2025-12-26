@@ -13,7 +13,7 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
 
         while (true) {
                 while (true) {
-                        // if (testwarn == x) undo == 1 break;
+                        // if (testwarn == x) undo == 1 break; //
                         printf("CHOOSE UNDO OR REDO (1/0) OR (-1) TO EXIT:");
                         scanf(" %d",&flag);
                         if ((flag == 0) || (flag == 1) || (flag == -1)) {while (getchar() != '\n'); break;}
@@ -36,9 +36,9 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
 
                 move_before_undo = *moves;
                 *current_x = 8 - (savegame[(*moves)--]-48);
-                *current_y = savegame[(*moves)--]-65;
+                *current_y = savegame[(*moves)--]-97;
                 *to_x = 8 - (savegame[(*moves)--]-48);
-                *to_y = savegame[(*moves)--]-65;
+                *to_y = savegame[(*moves)--]-97;
                 redo = 0, undo = 1;             //player turn zero here!?
 
                 if (*current_x == *to_x && (*to_y)+2 == *current_y){ //undo castling
@@ -72,9 +72,9 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 if (undo == 1) (*moves)++;
                 if (temp_player == 1) player_before_undo = 2; else player_before_undo = 1;
 
-                *current_y = savegame[(*moves)++]-65;
+                *current_y = savegame[(*moves)++]-97;
                 *current_x = 8 - (savegame[(*moves)++]-48);
-                *to_y = savegame[(*moves)++]-65;
+                *to_y = savegame[(*moves)++]-97;
                 *to_x = 8 - (savegame[(*moves)++]-48);
                 undo = 0; redo = 1;
                 
@@ -105,7 +105,7 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 temp_player = ((temp_player) % 2 ) +1;
                 }
                 draw(board, kill_white,kill_black);
-                // if (testwarn)  break;
+                // if (testwarn)  -1;
         }
 }
 
@@ -147,9 +147,9 @@ void ReturnKilled(int *current_x, char *current_y, int *to_x, int *to_y,int move
 void loadgame(int *current_x, char *current_y, int *to_x, char *to_y, int *moveindex, char savegamefile[]) {
 
         while(savegamefile[*moveindex] != '\0'){
-                *current_y = savegamefile[(*moveindex)++]-65;
+                *current_y = savegamefile[(*moveindex)++]-97;
                 *current_x = 8 - (savegamefile[(*moveindex)++]-48);
-                *to_y = savegamefile[(*moveindex)++]-65;
+                *to_y = savegamefile[(*moveindex)++]-97;
                 *to_x = 8 - (savegamefile[(*moveindex)++]-48);
                 break;
         }

@@ -21,7 +21,7 @@ void PickPiece(int player, int current_x, int current_y,
 
         if ((strcmp(board[current_x][current_y], "♚")==0) || (strcmp(board[current_x][current_y], "♔")==0)){
             king_move(player, current_x, current_y, to_x, to_y, board, flag, savegame);
-            if (*flag) eat( player,  current_x,  current_y,to_x, to_y, board,kill_white, kill_black,
+            if ((*flag) && !(current_y == 4 && to_y == 6)) eat( player,  current_x,  current_y,to_x, to_y, board,kill_white, kill_black,
             count_deadWhite,count_deadBlack,flag,moves, killed_white_at, killed_black_at);}
 
         if ((strcmp(board[current_x][current_y], "♝")==0) || (strcmp(board[current_x][current_y], "♗")==0)){

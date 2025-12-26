@@ -46,8 +46,10 @@ for(int a =-1;a<2;a++){
             for(int b =-1 ;b<2;b++){
                 if (a!=0||b!=0){
                     if(i+a==current_x&&i+b==current_y){
+                        if (!warning(player ,current_x, current_y, board,warning_x,warning_y)) {
                                 flag=true;
                                 *warning_x = i; *warning_y = j;
+                        }
                     }
                 }
             }

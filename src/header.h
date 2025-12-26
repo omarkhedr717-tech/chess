@@ -57,3 +57,7 @@ bool warning(int player ,int current_x, int current_y,char board[8][8][32],int *
 void DoCastling(int player, int current_x, int current_y, char board[8][8][32]);
 void UndoCastling(int player, int to_x, int to_y, char board[8][8][32]);
 void Checkdraw50(int count_deadWhite, int count_deadBlack, int *white_draw, int *black_draw, int *moves_draw, int *flagdraw50, int flagsave, int *draw_hist);
+bool stalemate(int player, char board[8][8][32]);
+bool king_check(int player,int current_x, int current_y,char board[8][8][32],
+    int *check_x,int *check_y, int *warning_x, int *warning_y);
+bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],int check_x,int check_y, int *warning_x, int *warning_y);

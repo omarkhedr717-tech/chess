@@ -7,10 +7,10 @@ void Input(int player,
     int flag = true;
     while (flag) {
         scanf(" %c%d", &*current_y, &*current_x);
-        *current_y = *current_y - 65;
+        *current_y = *current_y - 97;
         *current_x = 8 - *current_x;
         scanf(" %c%d", &*to_y, &*to_x);
-        *to_y = *to_y - 65;
+        *to_y = *to_y - 97;
         *to_x = 8 - *to_x;
         if (*current_x >= 0 && *current_x <= 7 && *current_y >= 0 && *current_y <= 7) {
             if (*to_x >= 0 && *to_x <= 7 && *to_y >= 0 && *to_y <= 7) {

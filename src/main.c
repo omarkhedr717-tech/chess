@@ -1,12 +1,12 @@
 #include "header.h"
 int main(){
     char board[8][8][32] = {
-        {"♖", "♘", "♗", "♕", ".", "♔", "-", "♖"},
-        {"♙", "♙", "♙", "♙", "♙", "-", ".", "♙"},
+        {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"},
+        {"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"},
         {"-", ".", "-", ".", ".", "-", ".", "-"},
-        {".", "-", "♝", ".", ".", ".", ".", "."},
-        {"-", ".", "-", ".", ".", "-", ".", "-"},
-        {".", "-", ".", "-", "-", ".", "-", "."},
+        {".", "-", ".", ".", ".", ".", ".", "."},
+        {"-", ".", ".", ".", ".", "-", ".", "-"},
+        {".", "-", ".", "-", ".", ".", ".", "."},
         {"♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"},
         {"♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"}};
     char kill_white[16][32]={" ", " ", " ", " ", " ", " ", " ", " ",
@@ -57,7 +57,7 @@ while (getchar() != '\n');
 if (flagsave == 1) {
     printf("WHICH GAME SAVE?: \n");
     scanf("%s",filename);
-    while(LoadFile(filename, savegamefile,promotion_hist,draw_hist)) {
+    while(LoadFile(filename, savegamefile,promotion_hist,&draw_hist)) {
         scanf("%s",filename);
     }
 }
@@ -79,12 +79,14 @@ if (flagsave == 0 && flagundo == 0) {
             printf("PLAYER %d WINS THE GAME\n", (player % 2) + 1);
             break;
         }
+    if(stalemate(player, board)) {printf("GAME ENDED DRAW1\n"); break;}
+    if(stalemate((player%2)+1, board)) {printf("GAME ENDED DRAW2\n"); break;}
         printf("CHECK!\n");
     }
     printf("PLAYER %d\n",player);
     Input(player, &current_x,&current_y,&to_x, &to_y,board);
 }
-savegame[i++] = current_y+65; savegame[i++] = 8-current_x+48; savegame[i++] = to_y+65; savegame[i++] = 8-to_x+48;
+savegame[i++] = current_y+97; savegame[i++] = 8-current_x+48; savegame[i++] = to_y+97; savegame[i++] = 8-to_x+48;
 moves=strlen(savegame)-1;
 
 
@@ -110,6 +112,7 @@ if(king_check(player, current_x, current_y, board, &check_x, &check_y, &warning_
     Undo(&current_x, &current_y, &to_x, &to_y, &moves, savegame, board, &count_deadWhite, &count_deadBlack, killed_white_at, 
         killed_black_at, kill_white, kill_black,&player, &flagpassant, passant_counter, promotion_white_at, 
         promotion_white_type, promotion_black_at, promotion_black_type);
+        //player
     continue;
 }
 draw(board, kill_white,kill_black);
