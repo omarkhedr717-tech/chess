@@ -1,7 +1,10 @@
 #include"header.h"
 
 void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char savegame[], char board[8][8][32], int *count_deadWhite, int *count_deadBlack, int killed_white_at[16],
-        int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], int *player, int *flagpassant, int passant_counter[8],  int promotion_white_at[8], char promotion_white_type[8][32], int promotion_black_at[8], char promotion_black_type[8][32]) {
+        int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], int *player, 
+        int *flagpassant, int passant_counter[8],  int promotion_white_at[8], char promotion_white_type[8][32], 
+        int promotion_black_at[8], char promotion_black_type[8][32], int flagwarn, int *i, int *passant_index, int drawmovehist[], int *drawhistindex,
+        int *white_promotion, int *black_promotion, int promotion_hist[], int *promotion_index) {
         int flag;
         char temp_board[8][8][32];
         int move_before_undo = *moves;
@@ -13,7 +16,8 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
 
         while (true) {
                 while (true) {
-                        // if (testwarn == x) undo == 1 break; //
+                        if (flagwarn == 1) {flag = 1; break;}
+                        else if (flagwarn == 0) {flag = -1; break;}
                         printf("CHOOSE UNDO OR REDO (1/0) OR (-1) TO EXIT:");
                         scanf(" %d",&flag);
                         if ((flag == 0) || (flag == 1) || (flag == -1)) {while (getchar() != '\n'); break;}
@@ -21,12 +25,15 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                         }
                 if (flag == -1) {
                 *player = temp_player;
-                if (((*moves) % 2) == 1) savegame[*moves+1] = '\0';
-                else if ((*moves) % 2 == 0) savegame[(*moves)-1] = '\0';
-                else if (*moves == -1) savegame[*moves+1] = '\0';
+                if ((((*moves) % 2) == 1) || (*moves == -1)) for (int i=(*moves)+1;savegame[i]!='\0';i++) savegame[i] = '\0';
+                else if ((*moves) % 2 == 0) {
+                        for (int i=(*moves);savegame[i]!='\0';i++) savegame[i] = '\0';
+                        *moves--;
+                }
 
-                for (int i=*count_deadWhite;i<16;i++) killed_white_at[i] = 0;
-                for (int i=*count_deadBlack;i<16;i++) killed_black_at[i] = 0;
+                for (int e = *white_promotion;e<8;e++) strcpy(promotion_white_type[e],"\0");
+                for (int f = *black_promotion;f<8;f++) strcpy(promotion_black_type[f],"\0");
+                for (int g = *promotion_index;g<16;g++) promotion_hist[g] = 0;
                 break;
                 }
 
@@ -49,14 +56,22 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 
                 for (int i=0; i<8;i++) {
                         if (passant_counter[i] == 0) {*flagpassant = 0; break;}
-                        if(move_before_undo == passant_counter[i] || move_before_undo == passant_counter[i]-4) {*flagpassant = 1; break;}
+                        if(move_before_undo == passant_counter[i] || move_before_undo == passant_counter[i]-4) {*passant_index = i; *flagpassant = 1; break;}
                         else {*flagpassant = 0;}
                 }
                 
                 if ((player_before_undo == 1 && *current_x == 0) || (player_before_undo == 2 && *current_x == 7)) {
                         for (int i=0; i<8;i++) {
-                                if (move_before_undo == promotion_white_at[i]) strcpy(board[*current_x][*current_y], "♟");
-                                if (move_before_undo == promotion_black_at[i]) strcpy(board[*current_x][*current_y], "♙");
+                                if (move_before_undo == promotion_white_at[i]) {
+                                        strcpy(board[*current_x][*current_y], "♟");
+                                        if ((*white_promotion) > 0) (*white_promotion)--;
+                                        if (promotion_index > 0) (*promotion_index)--;
+                                }
+                                if (move_before_undo == promotion_black_at[i]) {
+                                        strcpy(board[*current_x][*current_y], "♙");
+                                        if ((*black_promotion) > 0) (*black_promotion)--;
+                                        if (promotion_index > 0) (*promotion_index)--;
+                                }
                         }
                 }
 
@@ -64,6 +79,9 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 FixBoard(*current_x,*current_y,board);
                 ReturnKilled(current_x, current_y, to_x, to_y,move_before_undo, count_deadWhite, count_deadBlack, killed_white_at, killed_black_at, kill_white, kill_black, board, flag, flagpassant, passant_counter);
                 temp_player = ((temp_player) % 2 ) +1;
+                if (flagwarn == 1) flagwarn = 0;
+                *i -=4;
+                if ((*drawhistindex) > 0) (*drawhistindex)--;
                 }
 
 
@@ -87,14 +105,22 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 move_before_undo = (*moves)-1;
                 for (int i=0; i<8;i++) {
                         if (passant_counter[i] == 0) {*flagpassant = 0; break;}
-                        if(move_before_undo == passant_counter[i] || move_before_undo == passant_counter[i]-4) {*flagpassant = 1; Index = i; break;}
+                        if(move_before_undo == passant_counter[i] || move_before_undo == passant_counter[i]-4) {*passant_index = i; *flagpassant = 1; Index = i; break;}
                         else {*flagpassant = 0;}
                 }
 
                 if ((temp_player == 1 && *to_x == 0) || (temp_player == 2 && *to_x == 7))
                 for (int i=0; i<8;i++) {
-                        if (move_before_undo == promotion_white_at[i]) strcpy(board[*current_x][*current_y], promotion_white_type[i]);
-                        if(move_before_undo == promotion_black_at[i]) strcpy(board[*current_x][*current_y], promotion_black_type[i]);
+                        if (move_before_undo == promotion_white_at[i]) {
+                                strcpy(board[*current_x][*current_y], promotion_white_type[i]);
+                                if ((*white_promotion) < 8) (*white_promotion)++;
+                                if (promotion_index < 16) (*promotion_index)++;
+                        }
+                        if(move_before_undo == promotion_black_at[i]) {
+                                strcpy(board[*current_x][*current_y], promotion_black_type[i]);
+                                if ((*black_promotion) < 8) (*black_promotion)++;
+                                if (promotion_index < 16) (*promotion_index)++;
+                        }
                 }
 
                 ReturnKilled(current_x, current_y, to_x, to_y,move_before_undo, count_deadWhite, count_deadBlack, killed_white_at, killed_black_at, kill_white, kill_black, board, flag, flagpassant, passant_counter);
@@ -103,9 +129,10 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
 
                 if (*flagpassant == 1 && (move_before_undo != passant_counter[Index]-4)) {FixBoard(*current_x,((*current_y)+1),board);}
                 temp_player = ((temp_player) % 2 ) +1;
-                }
-                draw(board, kill_white,kill_black);
-                // if (testwarn)  -1;
+                *i +=4;
+                (*drawhistindex)++;
+        }
+        draw(board, kill_white,kill_black);
         }
 }
 

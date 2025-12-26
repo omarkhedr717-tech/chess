@@ -3,7 +3,7 @@ int main(){
     char board[8][8][32] = {
         {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"},
         {"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"},
-        {"-", ".", "-", ".", ".", "-", ".", "-"},
+        {"-", ".", ".", ".", ".", "-", ".", "-"},
         {".", "-", ".", ".", ".", ".", ".", "."},
         {"-", ".", ".", ".", ".", "-", ".", "-"},
         {".", "-", ".", "-", ".", ".", ".", "."},
@@ -40,11 +40,14 @@ int check_x, check_y;
 int warning_x, warning_y;
 
 int white_draw, black_draw, moves_draw, flagdraw50=1;
-
+int passant_index=0;
 int promotion_hist[16];
 int promotion_index=0;
-
+int drawmovehist[] = {0};
+int drawhistindex=0;
 int draw_hist;
+
+int flagwarn = -1;
 
 FILE *fp;
 while (true) {
@@ -96,8 +99,11 @@ if (moves > 0 ) {
         &count_deadWhite,&count_deadBlack,&flag,moves,killed_white_at,killed_black_at,&flagpassant,
         possion_white_at,possion_black_at,&passant_x,&passant_y, passant_counter, &passantIndex, savegame, 
         promotion_white_at, promotion_white_type, &WPromotionIndex,promotion_black_at, promotion_black_type, &BPromotionIndex, &moves_draw, &flagsave, &promotion_index, promotion_hist);
-    if (flag) moves_draw+=1;
+    if (flag) {
+        drawmovehist[drawhistindex++] = moves_draw;
+        moves_draw+=1;
     }
+}
 
 if(!flag){      //if it's invalid remove it from the saving file
 savegame[--i] = '\0', savegame[--i] = '\0',savegame[--i] = '\0',savegame[--i] = '\0';
@@ -109,10 +115,13 @@ continue;
 
 if(king_check(player, current_x, current_y, board, &check_x, &check_y, &warning_x, &warning_y)){
     printf("King is in Dangerous!\n");
+    flagwarn = 1;
     Undo(&current_x, &current_y, &to_x, &to_y, &moves, savegame, board, &count_deadWhite, &count_deadBlack, killed_white_at, 
         killed_black_at, kill_white, kill_black,&player, &flagpassant, passant_counter, promotion_white_at, 
-        promotion_white_type, promotion_black_at, promotion_black_type);
-        //player
+        promotion_white_type, promotion_black_at, promotion_black_type,flagwarn,&i, &passant_index, drawmovehist, &drawhistindex,
+        &WPromotionIndex, &BPromotionIndex, promotion_hist, &promotion_index);      
+        player = (player%2)+1;
+        flagwarn = -1;
     continue;
 }
 draw(board, kill_white,kill_black);
@@ -123,9 +132,10 @@ if (flagsave == 0) {
     printf("DO YOU WANT TO UNDO OR REDO (1/0)?:\n");
     scanf("%d",&flagundo);
     if (flagsave == 0 && moves > 0 && flagundo == 1)
-        Undo(&current_x, &current_y, &to_x, &to_y, &moves, savegame, board, &count_deadWhite, &count_deadBlack, killed_white_at, 
+    Undo(&current_x, &current_y, &to_x, &to_y, &moves, savegame, board, &count_deadWhite, &count_deadBlack, killed_white_at, 
         killed_black_at, kill_white, kill_black,&player, &flagpassant, passant_counter, promotion_white_at, 
-        promotion_white_type, promotion_black_at, promotion_black_type);
+        promotion_white_type, promotion_black_at, promotion_black_type,flagwarn,&i, &passant_index, drawmovehist, &drawhistindex,
+        &WPromotionIndex, &BPromotionIndex, promotion_hist, &promotion_index);
     flagundo = 0; flagsave=0;
     i = strlen(savegame);
 }

@@ -27,8 +27,10 @@ void king_move(int player, int current_x, int current_y,
                  int to_x, int to_y, char board[8][8][32], bool *flag, char savegame[]);
 void FixBoard(int current_x, int current_y,char board[8][8][32]);
 void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char savegame[], char board[8][8][32], int *count_deadWhite, int *count_deadBlack, int killed_white_at[16],
-        int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], int *player, int *flagpassant, int passant_counter[8],
-          int promotion_white_at[8], char promotion_white_type[8][32], int promotion_black_at[8], char promotion_black_type[8][32]);
+        int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], int *player, 
+        int *flagpassant, int passant_counter[8],  int promotion_white_at[8], char promotion_white_type[8][32], 
+        int promotion_black_at[8], char promotion_black_type[8][32], int flagwarn, int *i, int *passant_index, int drawmovehist[], int *drawhistindex,
+        int *white_promotion, int *black_promotion, int promotion_hist[], int *promotion_index);
 void ReturnKilled(int *current_x, char *current_y, int *to_x, int *to_y,int move_before_undo, int *count_deadWhite, int *count_deadBlack,
         int killed_white_at[16], int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], char board[8][8][32], int flag, int *flagpassant, int passant_counter[8]);
 void loadgame(int *current_x, char *current_y, int *to_x, char *to_y, int *moveindex, char savegamefile[]);
@@ -61,3 +63,4 @@ bool stalemate(int player, char board[8][8][32]);
 bool king_check(int player,int current_x, int current_y,char board[8][8][32],
     int *check_x,int *check_y, int *warning_x, int *warning_y);
 bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],int check_x,int check_y, int *warning_x, int *warning_y);
+bool king_positions_warning(int current_x , int current_y, char board[8][8][32]);

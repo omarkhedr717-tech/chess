@@ -32,10 +32,10 @@ bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],in
                     if(!warning(player ,check_x+a,check_y+b,board,warning_x,warning_y)){
                         if(player == 1) {
                             if (!check_white(check_x+a,check_y+b,board))
-                                flag=false;
+                            flag=false;
                         }else if (player == 2) {
-                                if (!check_black(check_x+a,check_y+b,board))
-                                flag=false;
+                            if (!check_black(check_x+a,check_y+b,board))
+                            flag=false;
                         }
                     }
                 }
@@ -45,6 +45,7 @@ bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],in
     char black[3][32]={"♖","♗","♕"};
     char white[6][32]={"♜","♝","♛"};
     char killers[3][32];
+    player = (player%2)+1;
     for(int i=0;i<3;i++){
         if (player == 1){
             strcpy(killers[i] , black[i]);
@@ -52,8 +53,8 @@ bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],in
             strcpy(killers[i] , white[i]);
         }
     }
-    player = (player%2)+1;
     int x=*warning_x,y=*warning_y;
+    int check_king_warning = 1;
         if(warning(player ,x,y,board,warning_x,warning_y))
             flag = false;
     if(strcmp(killers[0], board[check_x][check_y])==0){
