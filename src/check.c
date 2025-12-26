@@ -25,6 +25,9 @@ bool king_check(int player,int current_x, int current_y,char board[8][8][32],
 }
 bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],int check_x,int check_y, int *warning_x, int *warning_y){
     bool flag =true;
+    char temp[32];
+    strcpy(temp, board[check_x][check_y]);
+    FixBoard(check_x,check_y,board);
     for(int a =-1;a<2;a++){
         for(int b =-1 ;b<2;b++){
             if (a!=0||b!=0){
@@ -42,6 +45,7 @@ bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],in
             }
         }
     }
+    strcpy(board[check_x][check_y], temp);
     char black[3][32]={"♖","♗","♕"};
     char white[6][32]={"♜","♝","♛"};
     char killers[3][32];
