@@ -46,7 +46,7 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 *current_y = savegame[(*moves)--]-97;
                 *to_x = 8 - (savegame[(*moves)--]-48);
                 *to_y = savegame[(*moves)--]-97;
-                redo = 0, undo = 1;             //player turn zero here!?
+                redo = 0, undo = 1;
 
                 if (*current_x == *to_x && (*to_y)+2 == *current_y){ //undo castling
                 UndoCastling(player_before_undo, *to_x, *to_y,board);
@@ -142,10 +142,10 @@ void ReturnKilled(int *current_x, char *current_y, int *to_x, int *to_y,int move
                 int temp_to_x = *to_x;
                 int temp_current_x = *current_x;
 
-                if (*flagpassant == 1) {
-                int capture_x = *current_x; 
-                int capture_y = *to_y;
-                }
+                // if (*flagpassant == 1) {
+                // int capture_x = *current_x; 
+                // int capture_y = *to_y;
+                // }
 
         if ((*count_deadWhite > 0) && (move_before_undo == killed_white_at[(*count_deadWhite)-1]) && flag == 1) {
                 if (*flagpassant == 1) {temp_current_x-=1;}

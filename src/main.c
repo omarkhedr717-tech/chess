@@ -4,8 +4,8 @@ int main(){
         {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"},
         {"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"},
         {"-", ".", ".", ".", ".", "-", ".", "-"},
-        {".", "-", ".", ".", ".", ".", ".", "."},
-        {"-", ".", ".", ".", ".", "-", ".", "-"},
+        {"♟", "-", ".", ".", ".", ".", ".", "."},
+        {"-", ".", "♙", ".", ".", "-", ".", "-"},
         {".", "-", ".", "-", ".", ".", ".", "."},
         {"♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"},
         {"♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"}};
@@ -102,7 +102,6 @@ if (moves > 0 ) {
         possion_white_at,possion_black_at,&passant_x,&passant_y, passant_counter, &passantIndex, savegame, 
         promotion_white_at, promotion_white_type, &WPromotionIndex,promotion_black_at, promotion_black_type, &BPromotionIndex, &moves_draw, &flagsave, &promotion_index, promotion_hist);
     if (flag) {
-        drawmovehist[drawhistindex++] = moves_draw;
         moves_draw+=1;
     }
 }
