@@ -1,12 +1,12 @@
 #include"header.h"
 
-void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char savegame[], char board[8][8][32], int *count_deadWhite, int *count_deadBlack, int killed_white_at[16],
-        int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], int *player, 
-        int *flagpassant, int passant_counter[8],  int promotion_white_at[8], char promotion_white_type[8][32], 
-        int promotion_black_at[8], char promotion_black_type[8][32], int flagwarn, int *i, int *passant_index, int drawmovehist[], int *drawhistindex,
+void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char savegame[], char board[8][8][5], int *count_deadWhite, int *count_deadBlack, int killed_white_at[16],
+        int killed_black_at[16], char kill_white[16][5], char kill_black[16][5], int *player, 
+        int *flagpassant, int passant_counter[8],  int promotion_white_at[8], char promotion_white_type[8][5], 
+        int promotion_black_at[8], char promotion_black_type[8][5], int flagwarn, int *i, int *passant_index, int drawmovehist[], int *drawhistindex,
         int *white_promotion, int *black_promotion, int promotion_hist[], int *promotion_index) {
         int flag;
-        char temp_board[8][8][32];
+        char temp_board[8][8][5];
         int move_before_undo = *moves;
         int temp_player = *player;
         int player_before_undo;
@@ -137,7 +137,7 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
 }
 
 void ReturnKilled(int *current_x, char *current_y, int *to_x, int *to_y,int move_before_undo, int *count_deadWhite, int *count_deadBlack,
-        int killed_white_at[16], int killed_black_at[16], char kill_white[16][32], char kill_black[16][32], char board[8][8][32], int flag, int *flagpassant, int passant_counter[8]) {
+        int killed_white_at[16], int killed_black_at[16], char kill_white[16][5], char kill_black[16][5], char board[8][8][5], int flag, int *flagpassant, int passant_counter[8]) {
 
                 int temp_to_x = *to_x;
                 int temp_current_x = *current_x;
@@ -182,7 +182,7 @@ void loadgame(int *current_x, char *current_y, int *to_x, char *to_y, int *movei
         }
 }
 
-void UndoCastling(int player, int to_x, int to_y, char board[8][8][32]) {
+void UndoCastling(int player, int to_x, int to_y, char board[8][8][5]) {
         if (player == 1) {
         strcpy(board[to_x][to_y], "♚");
         FixBoard(to_x, to_y+2,board);

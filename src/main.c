@@ -1,6 +1,6 @@
 #include "header.h"
 int main(){
-    char board[8][8][32] = {
+    char board[8][8][5] = {
         {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"},
         {"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"},
         {"-", ".", ".", ".", ".", "-", ".", "-"},
@@ -9,9 +9,9 @@ int main(){
         {".", "-", ".", "-", ".", ".", ".", "."},
         {"♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"},
         {"♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"}};
-    char kill_white[16][32]={" ", " ", " ", " ", " ", " ", " ", " ",
+    char kill_white[16][5]={" ", " ", " ", " ", " ", " ", " ", " ",
                             " ", " ", " ", " ", " ", " ", " ", " "};
-    char kill_black[16][32]={" ", " ", " ", " ", " ", " ", " ", " ",
+    char kill_black[16][5]={" ", " ", " ", " ", " ", " ", " ", " ",
                         " ", " ", " ", " ", " ", " ", " ", " "};
     int player=1,current_x,  to_x, count_deadWhite=0,count_deadBlack=0;
     char current_y,to_y;bool flag;
@@ -33,7 +33,7 @@ int passant_x;
 int passant_y;
 
 int promotion_white_at[8], promotion_black_at[8];
-char promotion_white_type[8][32], promotion_black_type[8][32];
+char promotion_white_type[8][5], promotion_black_type[8][5];
 int BPromotionIndex=0, WPromotionIndex=0;
 
 int check_x, check_y;
@@ -143,11 +143,9 @@ if (flagsave == 0) {
 }
 draw(board, kill_white,kill_black);
 
-
+Checkdraw50(count_deadWhite, count_deadBlack, &white_draw, &black_draw, &moves_draw, &flagdraw50, flagsave, &draw_hist);
 if (flagsave == 0) UpdateFile(filename, savegame, promotion_hist,draw_hist);
 if (savegamefile[moveindex] == '\n') {flagsave = 0;}  //loading is done
-
-Checkdraw50(count_deadWhite, count_deadBlack, &white_draw, &black_draw, &moves_draw, &flagdraw50, flagsave, &draw_hist);
 }
 return 0;
 }

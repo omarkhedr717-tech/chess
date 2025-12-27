@@ -1,7 +1,7 @@
 #include"header.h"
 void eat(int player, int current_x, int current_y,
-                 int to_x, int to_y, char board[8][8][32],
-                char kill_white[16][32],char kill_black[16][32],
+                 int to_x, int to_y, char board[8][8][5],
+                char kill_white[16][5],char kill_black[16][5],
                 int *count_deadWhite,int *count_deadBlack,bool flag,
                  int moves, int killed_white_at[16], int killed_black_at[16]){
         if(flag){

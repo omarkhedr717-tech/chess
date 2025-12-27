@@ -1,5 +1,5 @@
 #include"header.h"
-void draw(char board[8][8][32],char kill_white[16][32],char kill_black[16][32]){
+void draw(char board[8][8][5],char kill_white[16][5],char kill_black[16][5]){
     char col ='A';
     int x = 8;
     for(int i=0 ; i <8 ;i++){

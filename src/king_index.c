@@ -1,7 +1,7 @@
 #include"header.h"
-bool king_positions_warning(int current_x , int current_y, char board[8][8][32]){
-    char white[1][32]={"♚"};
-    char black[1][32]={"♔"};
+bool king_positions_warning(int current_x , int current_y, char board[8][8][5]){
+    char white[1][5]={"♚"};
+    char black[1][5]={"♔"};
     int kingWhite_x, kingWhite_y, kingBlack_x, kingBlack_y;
         for (int i =0;i<8;i++){
             for (int j =0 ; j<8;j++){

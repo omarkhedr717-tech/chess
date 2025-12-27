@@ -2,7 +2,7 @@
 void Input(int player, 
     int *current_x, char *current_y,
     int *to_x, char *to_y, 
-    char board[8][8][32])
+    char board[8][8][5])
      {
     int flag = true;
     while (flag) {

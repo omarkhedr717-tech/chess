@@ -1,11 +1,11 @@
 #include"header.h"
-bool stalemate(int player, char board[8][8][32]){
+bool stalemate(int player, char board[8][8][5]){
 bool flag =true;
-    char black[6][32]={"♙","♖", "♘", "♗", "♔", "♕"};
-    char white[6][32]={"♟","♜", "♞", "♝", "♚", "♛"};
-    char rest[6][32];
+    char black[6][5]={"♙","♖", "♘", "♗", "♔", "♕"};
+    char white[6][5]={"♟","♜", "♞", "♝", "♚", "♛"};
+    char rest[6][5];
     int garbage=0,garbage1=0,garbage2=0,garbage3=0;
-    char temp[32];
+    char temp[5];
         for(int i =0;i<6;i++){
             if (player == 1){
                 strcpy(rest[i] , white[i]);

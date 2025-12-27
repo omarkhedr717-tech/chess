@@ -22,7 +22,7 @@ void UpdateFile(char filename[], char savegame[], int promotion_hist[], int draw
     fprintf(fp, "%s\n", savegame);
     for(int i = 0; i < 16; i++)
         fprintf(fp, "%d", promotion_hist[i]);
-    fprintf(fp, "%d\n", draw_hist);
+    fprintf(fp, "%d", draw_hist);
     fclose(fp);
 }
 
@@ -35,8 +35,8 @@ int LoadFile(char filename[], char savegamefile[], int promotion_hist[], int *dr
     if (fp) {
     fgets(savegamefile, 100000, fp);
         for(int i = 0; i < 16; i++)
-            fscanf(fp, "%1d", &promotion_hist[i]);
-    fscanf(fp, "%d", draw_hist);
+            fscanf(fp,"%1d", &promotion_hist[i]);
+    fscanf(fp,"%d", draw_hist);
     fclose(fp);
         return 0;
     }

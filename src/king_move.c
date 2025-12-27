@@ -1,6 +1,6 @@
 #include"header.h"
 void king_move(int player, int current_x, int current_y,
-                 int to_x, int to_y, char board[8][8][32], bool *flag, char savegame[]){
+                 int to_x, int to_y, char board[8][8][5], bool *flag, char savegame[]){
 *flag =false;
 int garbage1=0;
     if (current_x == to_x && to_y == current_y + 2) {

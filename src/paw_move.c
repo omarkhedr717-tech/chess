@@ -1,11 +1,11 @@
 #include"header.h"
 void paw_move(int player, int current_x, int current_y,
-                 int to_x, int to_y, char board[8][8][32],
-                char kill_white[16][32],char kill_black[16][32],
+                 int to_x, int to_y, char board[8][8][5],
+                char kill_white[16][5],char kill_black[16][5],
                 int *count_deadWhite,int *count_deadBlack,bool *flag, int moves, int killed_white_at[16], int killed_black_at[16], 
                 int *flagpassant, int *passant_x, int *passant_y, int passant_counter[8], int *passantIndex, int promotion_white_at[8], 
-                char promotion_white_type[8][32], int *WPromotionIndex,int promotion_black_at[8],
-                 char promotion_black_type[8][32], int *BPromotionIndex, int *moves_draw, int *flagsave, int *promotion_index, int promotion_hist[]){
+                char promotion_white_type[8][5], int *WPromotionIndex,int promotion_black_at[8],
+                 char promotion_black_type[8][5], int *BPromotionIndex, int *moves_draw, int *flagsave, int *promotion_index, int promotion_hist[]){
                     *flag = false;
                     if(player ==1){
                         if(to_x==current_x-2 && to_y==current_y){
@@ -63,8 +63,8 @@ void paw_move(int player, int current_x, int current_y,
             *moves_draw = 0;
             strcpy(board[to_x][to_y] , board[current_x][current_y]);
             FixBoard(current_x,current_y,board);
-                char black[6][32]={"♖", "♘", "♗", "♕"};
-                char white[6][32]={"♜", "♞", "♝", "♛"};
+                char black[6][5]={"♖", "♘", "♗", "♕"};
+                char white[6][5]={"♜", "♞", "♝", "♛"};
                 int ans;
                 if(player==1){
                     if(to_x==0){

@@ -1,6 +1,6 @@
 #include"header.h"
 void knight_move(int current_x, int current_y,
-                 int to_x,  int to_y, char board[8][8][32],bool *flag){
+                 int to_x,  int to_y, char board[8][8][5],bool *flag){
 *flag = false;
             for(int i =-2;i<=2;i++){
                 for(int j =-2;j<=2;j++){

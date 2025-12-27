@@ -1,9 +1,9 @@
 #include"header.h"
-bool king_check(int player,int current_x, int current_y,char board[8][8][32],
+bool king_check(int player,int current_x, int current_y,char board[8][8][5],
     int *check_x,int *check_y, int *warning_x, int *warning_y){
-    char white[1][32]={"♚"};
-    char black[1][32]={"♔"};
-    char king[1][32];
+    char white[1][5]={"♚"};
+    char black[1][5]={"♔"};
+    char king[1][5];
         if (player == 1){
             strcpy(king[0] , white[0]);
         }else if(player == 2){
@@ -23,11 +23,9 @@ bool king_check(int player,int current_x, int current_y,char board[8][8][32],
         }
     return flag;
 }
-bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],int check_x,int check_y, int *warning_x, int *warning_y){
+bool check_mate(int player ,int current_x, int current_y,char board[8][8][5],int check_x,int check_y, int *warning_x, int *warning_y){
     bool flag =true;
-    char temp[32];
-    strcpy(temp, board[check_x][check_y]);
-    FixBoard(check_x,check_y,board);
+    char temp[5];
     for(int a =-1;a<2;a++){
         for(int b =-1 ;b<2;b++){
             if (a!=0||b!=0){
@@ -45,10 +43,9 @@ bool check_mate(int player ,int current_x, int current_y,char board[8][8][32],in
             }
         }
     }
-    strcpy(board[check_x][check_y], temp);
-    char black[3][32]={"♖","♗","♕"};
-    char white[6][32]={"♜","♝","♛"};
-    char killers[3][32];
+    char black[3][5]={"♖","♗","♕"};
+    char white[6][5]={"♜","♝","♛"};
+    char killers[3][5];
     player = (player%2)+1;
     for(int i=0;i<3;i++){
         if (player == 1){

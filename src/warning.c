@@ -1,9 +1,9 @@
 #include"header.h"
-bool warning(int player ,int current_x, int current_y,char board[8][8][32],int *warning_x,int *warning_y){
+bool warning(int player ,int current_x, int current_y,char board[8][8][5],int *warning_x,int *warning_y){
     bool flag =false;
-    char black[6][32]={"♙","♖", "♘", "♗", "♔", "♕"};
-    char white[6][32]={"♟","♜", "♞", "♝", "♚", "♛"};
-    char killers[6][32];
+    char black[6][5]={"♙","♖", "♘", "♗", "♔", "♕"};
+    char white[6][5]={"♟","♜", "♞", "♝", "♚", "♛"};
+    char killers[6][5];
 
         for(int i =0;i<6;i++){
             if (player == 1){
@@ -48,9 +48,11 @@ if(flag) {*warning_x = i; *warning_y = j;}
                     if (a!=0||b!=0){
                         if(i+a==current_x&&j+b==current_y){
                             if (king_positions_warning(current_x , current_y, board)) {flag = true; break;}
-                            if (!warning(player ,current_x, current_y, board,warning_x,warning_y)) {
+                            else {
+                                if (!warning(player ,current_x, current_y, board,warning_x,warning_y)) {
                                     flag=true;
                                     *warning_x = i; *warning_y = j;
+                                }
                             }
                         }
                     }
