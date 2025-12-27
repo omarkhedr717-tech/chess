@@ -2,7 +2,7 @@
 void king_move(int player, int current_x, int current_y,
                  int to_x, int to_y, char board[8][8][5], bool *flag, char savegame[]){
 *flag =false;
-int garbage1=0;
+int position1=0;
     if (current_x == to_x && to_y == current_y + 2) {
         if ((player == 1 && current_x == 7 && current_y == 4) || (player == 2 && current_x == 0 && current_y == 4)) {
             if (check_white(current_x,current_y+1,board) || check_black(current_x,current_y+1,board) || check_white(current_x,current_y+2,board) || check_black(current_x,current_y+2,board)) return;
@@ -10,7 +10,7 @@ int garbage1=0;
                 if (player == 1 && (savegame[i+1] == '1' && (savegame[i] == 'h' || savegame[i] == 'e') && (savegame[i+2] != 'g'))) return;
                 else if (player == 2 && (savegame[i+1] == '8' && (savegame[i] == 'h' || savegame[i] == 'e') && (savegame[i+2] != 'g'))) return;
             }
-            if (warning(player , current_x, current_y+1, board,&garbage1,&garbage1) || warning(player , current_x, current_y+2, board,&garbage1,&garbage1)) return;
+            if (warning(player , current_x, current_y+1, board,&position1,&position1) || warning(player , current_x, current_y+2, board,&position1,&position1)) return;
             else {
                 DoCastling(player, current_x, current_y, board);
                 *flag = true;
@@ -21,7 +21,7 @@ int garbage1=0;
             for(int b =-1 ;b<2;b++){
                 if (a!=0||b!=0){
                     if(current_x+a==to_x&&current_y+b==to_y){
-                            if(!warning(player ,to_x,to_y,board,&garbage1,&garbage1)){
+                            if(!warning(player ,to_x,to_y,board,&position1,&position1)){
                                 *flag=true;
                             }
                     }

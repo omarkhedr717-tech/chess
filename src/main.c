@@ -3,10 +3,10 @@ int main(){
     char board[8][8][5] = {
         {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"},
         {"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"},
-        {"-", ".", ".", ".", ".", "-", ".", "-"},
-        {"♟", "-", ".", ".", ".", ".", ".", "."},
-        {"-", ".", "♙", ".", ".", "-", ".", "-"},
-        {".", "-", ".", "-", ".", ".", ".", "."},
+        {"-", ".", "-", ".", "-", ".", "-", "."},
+        {".", "-", ".", "-", ".", "-", ".", "-"},
+        {"-", ".", "-", ".", "-", ".", "-", "."},
+        {".", "-", ".", "-", ".", "-", ".", "-"},
         {"♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"},
         {"♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"}};
     char kill_white[16][5]={" ", " ", " ", " ", " ", " ", " ", " ",
@@ -43,8 +43,6 @@ int white_draw, black_draw, moves_draw, flagdraw50=1;
 int passant_index=0;
 int promotion_hist[16];
 int promotion_index=0;
-int drawmovehist[] = {0};
-int drawhistindex=0;
 int draw_hist;
 
 int flagwarn = -1;
@@ -119,7 +117,7 @@ if(king_check(player, current_x, current_y, board, &check_x, &check_y, &warning_
     flagwarn = 1;
     Undo(&current_x, &current_y, &to_x, &to_y, &moves, savegame, board, &count_deadWhite, &count_deadBlack, killed_white_at, 
         killed_black_at, kill_white, kill_black,&player, &flagpassant, passant_counter, promotion_white_at, 
-        promotion_white_type, promotion_black_at, promotion_black_type,flagwarn,&i, &passant_index, drawmovehist, &drawhistindex,
+        promotion_white_type, promotion_black_at, promotion_black_type,flagwarn,&i, &passant_index,
         &WPromotionIndex, &BPromotionIndex, promotion_hist, &promotion_index);      
         player = (player%2)+1;
         flagwarn = -1;
@@ -135,7 +133,7 @@ if (flagsave == 0) {
     if (flagsave == 0 && moves > 0 && flagundo == 1)
     Undo(&current_x, &current_y, &to_x, &to_y, &moves, savegame, board, &count_deadWhite, &count_deadBlack, killed_white_at, 
         killed_black_at, kill_white, kill_black,&player, &flagpassant, passant_counter, promotion_white_at, 
-        promotion_white_type, promotion_black_at, promotion_black_type,flagwarn,&i, &passant_index, drawmovehist, &drawhistindex,
+        promotion_white_type, promotion_black_at, promotion_black_type,flagwarn,&i, &passant_index,
         &WPromotionIndex, &BPromotionIndex, promotion_hist, &promotion_index);
     flagundo = 0; flagsave=0;
     i = strlen(savegame);

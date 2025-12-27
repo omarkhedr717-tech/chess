@@ -3,7 +3,7 @@
 void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char savegame[], char board[8][8][5], int *count_deadWhite, int *count_deadBlack, int killed_white_at[16],
         int killed_black_at[16], char kill_white[16][5], char kill_black[16][5], int *player, 
         int *flagpassant, int passant_counter[8],  int promotion_white_at[8], char promotion_white_type[8][5], 
-        int promotion_black_at[8], char promotion_black_type[8][5], int flagwarn, int *i, int *passant_index, int drawmovehist[], int *drawhistindex,
+        int promotion_black_at[8], char promotion_black_type[8][5], int flagwarn, int *i, int *passant_index,
         int *white_promotion, int *black_promotion, int promotion_hist[], int *promotion_index) {
         int flag;
         char temp_board[8][8][5];
@@ -81,7 +81,6 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 temp_player = ((temp_player) % 2 ) +1;
                 if (flagwarn == 1) flagwarn = 0;
                 *i -=4;
-                if ((*drawhistindex) > 0) (*drawhistindex)--;
                 }
 
 
@@ -130,7 +129,6 @@ void Undo(int *current_x, char *current_y, int *to_x, int *to_y, int *moves,char
                 if (*flagpassant == 1 && (move_before_undo != passant_counter[Index]-4)) {FixBoard(*current_x,((*current_y)+1),board);}
                 temp_player = ((temp_player) % 2 ) +1;
                 *i +=4;
-                (*drawhistindex)++;
         }
         draw(board, kill_white,kill_black);
         }
@@ -141,11 +139,6 @@ void ReturnKilled(int *current_x, char *current_y, int *to_x, int *to_y,int move
 
                 int temp_to_x = *to_x;
                 int temp_current_x = *current_x;
-
-                // if (*flagpassant == 1) {
-                // int capture_x = *current_x; 
-                // int capture_y = *to_y;
-                // }
 
         if ((*count_deadWhite > 0) && (move_before_undo == killed_white_at[(*count_deadWhite)-1]) && flag == 1) {
                 if (*flagpassant == 1) {temp_current_x-=1;}

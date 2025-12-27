@@ -5,6 +5,7 @@ bool warning(int player ,int current_x, int current_y,char board[8][8][5],int *w
     char white[6][5]={"♟","♜", "♞", "♝", "♚", "♛"};
     char killers[6][5];
 
+    int position=0;
         for(int i =0;i<6;i++){
             if (player == 1){
                 strcpy(killers[i] , black[i]);
@@ -46,19 +47,15 @@ if(flag) {*warning_x = i; *warning_y = j;}
             for(int a =-1;a<2;a++){
                 for(int b =-1 ;b<2;b++){
                     if (a!=0||b!=0){
-                        if(i+a==current_x&&j+b==current_y){
-                            if (king_positions_warning(current_x , current_y, board)) {flag = true; break;}
-                            else {
-                                if (!warning(player ,current_x, current_y, board,warning_x,warning_y)) {
-                                    flag=true;
-                                    *warning_x = i; *warning_y = j;
-                                }
-                            }
+                        if(i+a==current_x&&i+b==current_y){
+                            flag=true;
+                            *warning_x = i; *warning_y = j;
                         }
                     }
                 }
             }
-                        }else if(k==5){
+        }
+                    else if(k==5){
 queen_move(i,j,current_x,current_y,board,&flag);
 if(flag) {*warning_x = i; *warning_y = j;}
                         }
