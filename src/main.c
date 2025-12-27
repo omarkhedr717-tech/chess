@@ -82,9 +82,11 @@ if (flagsave == 0 && flagundo == 0) {
             printf("PLAYER %d WINS THE GAME\n", (player % 2) + 1);
             break;
         }
-    if(stalemate(player, board)) {printf("GAME ENDED DRAW1\n"); break;}
-    if(stalemate((player%2)+1, board)) {printf("GAME ENDED DRAW2\n"); break;}
         printf("CHECK!\n");
+    }
+    else {
+        if (stalemate(player, board)) {printf("GAME ENDED DRAW\n"); break;}
+        if (stalemate((player%2)+1, board)) {printf("GAME ENDED DRAW\n"); break;}
     }
     printf("PLAYER %d\n",player);
     Input(player, &current_x,&current_y,&to_x, &to_y,board);
